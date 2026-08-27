@@ -39,6 +39,7 @@ function App() {
   }
   function displayTask(index:number){
     const checkList = toDoList.slice();
+    setToDo(checkList[index]);
     checkList[index].display=!checkList[index].display;
     setTodoList(checkList);
   }
@@ -71,7 +72,7 @@ function App() {
       <button onClick={()=>addToDo()}>➕</button>
       <button onClick={()=>{
         setTodoList(toDoList.filter(a=>a.checked==false)),uncheck();
-      }}>Remove every completed tasks</button>
+      }}>🚮 Remove every completed tasks</button>
       <button onClick={saveToLocal}>💾 Save To Do List</button>
     </div>
     <div>
@@ -83,7 +84,7 @@ function App() {
               <li key={task.id} className={task.class}>{task.name}</li>
               {task.deadline!=""&& !task.checked &&(<div>
                 <p>deadline : {task.deadline}</p>
-                {new Date(task.deadline).getTime()<yesterday.getTime()&&<p className="late">You're late</p>}
+                {new Date(task.deadline).getTime()<yesterday.getTime()&&<p className="late">⚠️ You're late</p>}
               </div>)}
               {task.checked &&(<div>
                 <p>completed : {task.completed}</p>
@@ -91,8 +92,8 @@ function App() {
             </div>)}
             {!task.display&& 
             <div className='gap'>
-              <input placeholder='Task' value={toDo.name} onChange={e=> setToDo({...toDo,name:e.target.value})}></input>
-              <input type="date" onChange={e=> setToDo({...toDo,deadline:e.target.value})}></input>
+              <input value={toDo.name} onChange={e=> setToDo({...toDo,name:e.target.value})}></input>
+              <input type="date" value={toDo.deadline} onChange={e=> setToDo({...toDo,deadline:e.target.value})}></input>
               <button onClick={()=>editTask(i)}>💾</button>
             </div>
             }
