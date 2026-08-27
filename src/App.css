@@ -21,6 +21,25 @@
   text-decoration: line-through;
 }
 
+.late {
+  color: red;
+}
+
+.flex {
+  display: flex;
+  gap: 1em;
+  max-height: 2em;
+  padding-bottom: 2em;
+}
+
+.gap {
+  display: flex;
+  gap: 1em;
+}
+
+ul{
+  list-style: none;
+}
 .hero {
   position: relative;
 
