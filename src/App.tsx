@@ -8,7 +8,8 @@ function App() {
     id:0,
     name:"",
     checked:false,
-    display:true
+    display:true,
+    class:""
   });
   function addToDo(){
     let curId = id;
@@ -20,6 +21,7 @@ function App() {
   function checkToDo(index:number){
     const checkList = toDoList.slice();
     checkList[index].checked=!checkList[index].checked;
+    checkList[index].checked?checkList[index].class="checked":checkList[index].class="";
     setTodoList(checkList);
   }
   function displayTask(index:number){
@@ -32,6 +34,13 @@ function App() {
     checkList[index].name=toDo.name;
     checkList[index].display=!checkList[index].display;
     setTodoList(checkList);
+    setToDo({...toDo,name:""});
+  }
+  function uncheck(){
+    const checklist = document.getElementsByTagName("input");
+    for(let i=0;i<checklist.length;i++){
+      checklist[i].checked=false;
+    }
   }
   return(
     <>
@@ -39,9 +48,9 @@ function App() {
       <label>
         To do : <input placeholder='Task' value={toDo.name} onChange={e=> setToDo({...toDo,name:e.target.value})}></input>
       </label>
-      <button onClick={addToDo}>add</button>
+      <button onClick={()=>addToDo()}>add</button>
       <button onClick={()=>{
-        setTodoList(toDoList.filter(a=>a.checked==false));
+        setTodoList(toDoList.filter(a=>a.checked==false)),uncheck();
       }}>Remove every done tasks</button>
     </div>
     <div>
@@ -49,7 +58,7 @@ function App() {
         {toDoList.map((task, i)=>(
           <div>
             <input type="checkbox" id={task.name} onChange={()=>checkToDo(i)}></input>
-            {task.display && (<li key={task.id} className={task.checked}>{task.name}</li>)}
+            {task.display && (<li key={task.id} className={task.class}>{task.name}</li>)}
             {!task.display&& 
             <div>
               <input placeholder='Task' value={toDo.name} onChange={e=> setToDo({...toDo,name:e.target.value})}></input>
